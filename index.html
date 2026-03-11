@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>greenVitta · salada fresca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f0faf4;
+            color: #1a302a;
+            line-height: 1.5;
+            padding-bottom: 80px;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --verde-intenso: #1f8a5c;
+            --verde-escuro: #0f5c3e;
+            --mostarda: #e5b83c;
+            --coral: #ff7a5c;
+            --cinza-claro: #f4f9f6;
+            --sombra: 0 20px 30px -10px rgba(0, 60, 30, 0.15);
+            --whatsapp: #25D366;
+        }
+
+        /* ----- HEADER ----- */
+        header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: -1px;
+            color: var(--verde-intenso);
+        }
+        .logo span {
+            color: var(--mostarda);
+            font-size: 1.1rem;
+            margin-left: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.2rem;
+            font-weight: 600;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #1d4e3b;
+            transition: 0.2s;
+            font-size: 1.1rem;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+        .nav-links a:hover {
+            color: var(--mostarda);
+            border-bottom-color: var(--mostarda);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--verde-intenso);
+            cursor: pointer;
+        }
+        .mobile-menu {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            background: white;
+            margin-top: 1rem;
+            border-radius: 28px;
+            padding: 0.5rem 0;
+            box-shadow: inset 0 0 0 1px rgba(0,40,20,0.05);
+        }
+        .mobile-menu a {
+            padding: 1rem 1.8rem;
+            text-decoration: none;
+            color: #1a2e2a;
+            font-weight: 600;
+            border-bottom: 1px solid #e0f0e5;
+        }
+        .mobile-menu a:last-child { border: none; }
+
+        /* ----- WHATSAPP FIXO ----- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 20px;
+            background: var(--whatsapp);
+            color: white;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            font-size: 2.4rem;
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            z-index: 99;
+            transition: 0.2s;
+            border: 3px solid white;
+        }
+        .whatsapp-float:hover { transform: scale(1.08); background: #20b859; }
+
+        /* ----- CONTAINER ----- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 1.5rem;
+        }
+
+        /* ----- NUTRICIONISTA ----- */
+        .nutri-section {
+            background: linear-gradient(135deg, #ffffff, #f2fcf7);
+            border-radius: 40px;
+            margin: 1.5rem 0 2rem 0;
+            padding: 2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            box-shadow: var(--sombra);
+            text-align: center;
+        }
+        .nutri-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #c1e5d6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--verde-escuro);
+            border: 5px solid var(--mostarda);
+            box-shadow: 0 10px 0 #0f5c3e20;
+            background-image: url('https://placehold.co/400x400/1f8a5c/white?text=Thais');
+            background-size: cover;
+            background-position: center;
+        }
+        .nutri-texto h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--verde-intenso);
+        }
+        .nutri-texto p {
+            font-size: 1.2rem;
+            color: #2f5f4b;
+        }
+        .nutri-texto i { color: var(--coral); }
+
+        /* ----- BANNERS COM IMAGENS (preenchem o card) ----- */
+        .banner-duplo {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .banner-item {
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            border: 4px solid var(--mostarda);
+        }
+        .banner-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .banner-texto {
+            padding: 1.5rem;
+            text-align: center;
+            background: white;
+        }
+        .banner-texto h4 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--verde-intenso);
+            margin-bottom: 0.5rem;
+        }
+        .banner-texto p {
+            font-size: 1.1rem;
+            background: #e4fff1;
+            padding: 0.4rem 1.5rem;
+            border-radius: 60px;
+            color: #0f5c3e;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        /* ----- HERO ----- */
+        .hero {
+            background: linear-gradient(145deg, #d4efe2, #ffffff);
+            border-radius: 48px;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--sombra);
+            border-left: 10px solid var(--mostarda);
+            border-right: 10px solid var(--mostarda);
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--verde-intenso);
+            margin-bottom: 0.5rem;
+        }
+        .hero .sub {
+            font-size: 1.4rem;
+            color: #3b6d58;
+            font-weight: 500;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.6);
+            display: inline-block;
+            padding: 0.5rem 1.8rem;
+            border-radius: 60px;
+            margin-top: 1rem;
+        }
+
+        /* ----- MENU (botões em coluna) ----- */
+        .builder-section {
+            background: white;
+            border-radius: 48px;
+            padding: 2.5rem 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--sombra);
+            text-align: center;
+        }
+        /* Título moderno */
+        .builder-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: white;
+            background: linear-gradient(135deg, var(--verde-intenso), var(--mostarda));
+            padding: 1rem 2rem;
+            border-radius: 80px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 2px solid white;
+        }
+        .builder-title i {
+            color: white;
+            font-size: 2rem;
+        }
+
+        .categoria {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .categoria h3 {
+            font-size: 1.6rem;
+            color: #1d4e3b;
+            margin-bottom: 1rem;
+            background: #e4fff1;
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            display: inline-block;
+            border: 2px solid var(--coral);
+        }
+
+        /* Opções em coluna (um abaixo do outro) */
+        .opcoes {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .opcoes input[type="radio"] { display: none; }
+        .opcoes label {
+            background: #f0fdf6;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1d5e41;
+            border: 3px solid var(--verde-intenso);
+            transition: 0.1s;
+            cursor: pointer;
+            box-shadow: 0 4px 8px #c0e0cf50;
+            width: 100%;
+            text-align: center;
+        }
+        .opcoes input[type="radio"]:checked + label {
+            background: var(--verde-intenso);
+            color: white;
+            border-color: var(--mostarda);
+            transform: scale(1.02);
+        }
+
+        .preco-destaque {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--coral);
+            margin: 1.8rem 0 1rem;
+        }
+        .btn-add {
+            background: var(--verde-intenso);
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 80px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            cursor: pointer;
+            box-shadow: var(--sombra);
+            border: 2px solid var(--mostarda);
+            display: block;
+        }
+
+        /* ----- CARRINHO ----- */
+        .cart-section {
+            background: white;
+            border-radius: 48px;
+            padding: 2rem 1.8rem;
+            margin: 2rem 0;
+            box-shadow: var(--sombra);
+            text-align: center;
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .cart-header h2 {
+            font-size: 2rem;
+            color: var(--verde-intenso);
+        }
+        .cart-header span {
+            background: var(--mostarda);
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #1f4a34;
+        }
+        .cart-items {
+            list-style: none;
+        }
+        .cart-item {
+            background: #f1fdf8;
+            border-radius: 30px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border: 3px solid var(--verde-intenso);
+            text-align: left;
+        }
+        .item-desc {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .item-desc span {
+            background: white;
+            border: 2px solid var(--verde-intenso);
+            border-radius: 40px;
+            padding: 0.3rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #0f5c3e;
+        }
+        .item-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            border: 2px solid var(--verde-intenso);
+        }
+        .qty-control button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            width: 30px;
+            color: var(--verde-intenso);
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .qty-control span {
+            font-weight: 700;
+            min-width: 24px;
+            text-align: center;
+        }
+        .item-price {
+            font-weight: 700;
+            color: var(--coral);
+            font-size: 1.2rem;
+        }
+        .btn-remove {
+            background: #ffe5e5;
+            border: 2px solid #b1453a;
+            color: #b1453a;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .cart-total {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--verde-intenso);
+            text-align: right;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        /* Botão checkout estilo WhatsApp */
+        .btn-checkout {
+            background: var(--whatsapp);
+            color: white;
+            font-weight: 800;
+            padding: 1.2rem;
+            border-radius: 60px;
+            width: 100%;
+            font-size: 1.6rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 16px rgba(37, 211, 102, 0.3);
+        }
+        .btn-checkout:hover:not(:disabled) {
+            transform: scale(1.02);
+            box-shadow: 0 12px 24px rgba(37, 211, 102, 0.4);
+        }
+        .btn-checkout:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ----- INSTAGRAM EMBED ----- */
+        .instagram-embed {
+            background: white;
+            border-radius: 48px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--sombra);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .instagram-embed h3 {
+            font-size: 2rem;
+            color: var(--verde-intenso);
+            margin-bottom: 1.5rem;
+        }
+        .instagram-media {
+            max-width: 540px;
+            width: 100% !important;
+            margin: 0 auto !important;
+        }
+
+        /* ----- MODAL ----- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 30, 20, 0.7);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+        .modal-card {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 50px;
+            padding: 2rem;
+            text-align: center;
+            border: 4px solid var(--verde-intenso);
+            box-shadow: var(--sombra);
+        }
+        .modal-card h3 {
+            color: var(--verde-intenso);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .modal-card input {
+            width: 100%;
+            padding: 1rem;
+            margin: 0.8rem 0;
+            border: 2px solid #c0e0cf;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: #f9fffc;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        .modal-buttons button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .btn-cancel {
+            background: #e3eee8;
+            color: #1e4a37;
+            border: 2px solid var(--verde-intenso) !important;
+        }
+        #confirmarPedido {
+            background: var(--verde-intenso);
+            color: white;
+            border: 2px solid var(--mostarda) !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+        }
+        footer a {
+            color: #5f8575;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        footer a:hover {
+            color: var(--verde-intenso);
+            text-decoration: underline;
+        }
+
+        /* ----- RESPONSIVO ----- */
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: inline-block; }
+            .mobile-menu.show { display: flex; }
+            .hero h1 { font-size: 2.2rem; }
+            .builder-title { font-size: 1.8rem; padding: 0.8rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">greenVitta<span>🍃</span></div>
+        <nav class="nav-links">
+            <a href="#home">Início</a>
+            <a href="#menu">Menu</a>
+            <a href="https://www.instagram.com/thaizhelenanutri/?utm_source=ig_embed&ig_rid=af58afb4-0fc3-49d6-9de0-dca221f745d0">Instagram</a>
+        </nav>
+        <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home">Início</a>
+            <a href="#menu">Menu</a>
+            <a href="https://www.instagram.com/thaizhelenanutri/?utm_source=ig_embed&ig_rid=af58afb4-0fc3-49d6-9de0-dca221f745d0">Instagram</a>
+        </div>
+    </header>
+
+    <!-- Nutricionista Thais -->
+    <div class="container">
+        <div class="nutri-section" id="home">
+            <div class="nutri-img" style="background-image: url('./thaiz.jpg');"></div>
+            <div class="nutri-texto">
+                <h3>Thaiz Helena</h3>
+                <p><i class="fas fa-leaf"></i> Nutricionista </p>
+                <p style="font-size: 1.1rem;">"Saladas verdes e equilibradas para sua saúde!"</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banners com imagens que preenchem o card -->
+    <div class="container">
+        <div class="banner-duplo">
+            <div class="banner-item">
+                <img src="./T3.jpeg" alt="Salada de Frango">
+                <div class="banner-texto">
+                    <h4>GREEN VITTA FRANGO</h4>
+                    <p>Frango desfiado · mix · mostarda</p>
+                </div>
+            </div>
+            <div class="banner-item">
+                <img src="./T2.jpeg" alt="Salada de Atum">
+                <div class="banner-texto">
+                    <h4>GREEN VITTA ATUM</h4>
+                    <p>Atum · legumes · mediterrâneo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/551111965899979?text=Olá!%20Quero%20um%20pedido%20greenVitta!" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <main class="container">
+        <!-- Hero -->
+        <section class="hero" id="home">
+            <h1>🥗 greenVitta</h1>
+            <div class="sub">Uma refeição completa, nutritiva e cheia de sabor.</div>
+            <p><i class="fas fa-leaf" style="color:var(--verde-intenso);"></i> Feitas no dia, com ingredientes frescos.</p>
+        </section>
+
+        <!-- Menu de montagem -->
+        <section class="builder-section" id="menu">
+            <div class="builder-title"><i class="fas fa-leaf"></i> Monte a sua:</div>
+            <!-- PROTEÍNA -->
+            <div class="categoria"><h3><i class="fas fa-drumstick-bite"></i> PROTEÍNA</h3>
+                <div class="opcoes">
+                    <input type="radio" name="protein" id="protFrango" value="Frango desfiado" checked><label for="protFrango">Frango desfiado</label>
+                    <input type="radio" name="protein" id="protAtum" value="Atum"><label for="protAtum">Atum</label>
+                </div>
+            </div>
+            <!-- CARBOIDRATO -->
+            <div class="categoria"><h3><i class="fas fa-bread-slice"></i> CARBOIDRATO</h3>
+                <div class="opcoes">
+                    <input type="radio" name="carb" id="carbBatata" value="Batata" checked><label for="carbBatata">Batata</label>
+                    <input type="radio" name="carb" id="carbMacarrao" value="Macarrão"><label for="carbMacarrao">Macarrão</label>
+                </div>
+            </div>
+            <!-- BASE -->
+            <div class="categoria"><h3><i class="fas fa-seedling"></i> BASE</h3>
+                <div class="opcoes">
+                    <input type="radio" name="base" id="baseMix" value="Mix de folhas" checked><label for="baseMix">Mix de folhas</label>
+                    <input type="radio" name="base" id="baseLegumes" value="Legumes frescos"><label for="baseLegumes">Legumes frescos</label>
+                </div>
+            </div>
+            <!-- MOLHOS -->
+            <div class="categoria"><h3><i class="fas fa-tint"></i> MOLHOS</h3>
+                <div class="opcoes">
+                    <input type="radio" name="molho" id="molhoCaesar" value="Caesar (iogurte e mostarda)" checked><label for="molhoCaesar">Caesar</label>
+                    <input type="radio" name="molho" id="molhoMed" value="Molho Mediterrâneo de azeite e ervas"><label for="molhoMed">Mediterrâneo</label>
+                </div>
+            </div>
+
+            <div class="preco-destaque">R$ 25,90</div>
+            <button class="btn-add" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Adicionar ao carrinho</button>
+        </section>
+
+        <!-- Carrinho -->
+        <section class="cart-section">
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-bag"></i> Seu pedido</h2>
+                <span>Encomendas abertas</span>
+            </div>
+            <ul class="cart-items" id="cartItemsList">
+                <li style="text-align:center; padding:1.5rem; color:#5f8575;">Carrinho vazio. Monte sua saladinha :)</li>
+            </ul>
+            <div class="cart-total" id="cartTotal">Total: R$ 0,00</div>
+            <button class="btn-checkout" id="checkoutBtn"> Peça já !</button>
+        </section>
+
+        <!-- Instagram Embed -->
+        <section class="instagram-embed" id="instagram">
+            <h3><i class="fab fa-instagram"></i> Siga @greenvitta</h3>
+            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DFGR6E7xowu/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/DFGR6E7xowu/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Ver essa foto no Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/DFGR6E7xowu/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Um post compartilhado por &gt;@endolevebalao Saúde | Bem-estar | Clínica Multidisciplinar (@clinicaelevveagoraeendoleve)</a></p></div></blockquote>
+            <script async src="//www.instagram.com/embed.js"></script>
+        </section>
+
+        <footer>
+            <a href="https://nutricao.info/thaizhelenanutri?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnPhNbwAvYoGMTXfyn9mJ4tHhcYj0dVzaK0Lc-TOJwF8HsilN0YjfvUPYzzo8_aem_Nwl6ntir3DPRQqUJju9r5w" target="_blank">greenVitta | saladas frescas | Thaiz Helena | Nutricionista</a>
+        </footer>
+    </main>
+
+    <!-- Modal pedido -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card">
+            <h3>Quase lá 💚</h3>
+            <input type="text" id="nomeCliente" placeholder="Seu nome">
+            <input type="email" id="emailCliente" placeholder="Seu e-mail">
+            <input type="tel" id="whatsappCliente" placeholder="WhatsApp com DDD">
+            <input type="text" id="observar" placeholder="Observação">
+            <div class="modal-buttons">
+                <button class="btn-cancel" id="cancelModal">Voltar</button>
+                <button id="confirmarPedido">Enviar pedido</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            let cart = [];
+            const cartList = document.getElementById('cartItemsList');
+            const cartTotalSpan = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const addBtn = document.getElementById('addToCartBtn');
+            const modal = document.getElementById('modalOverlay');
+            const cancelModal = document.getElementById('cancelModal');
+            const confirmPedido = document.getElementById('confirmarPedido');
+
+            // Número de WhatsApp para envio (formato internacional)
+            const whatsappNumber = '551111965899979';
+
+            function getCurrentChoices() {
+                return {
+                    protein: document.querySelector('input[name="protein"]:checked')?.value || 'Frango desfiado',
+                    carb: document.querySelector('input[name="carb"]:checked')?.value || 'Batata',
+                    base: document.querySelector('input[name="base"]:checked')?.value || 'Mix de folhas',
+                    molho: document.querySelector('input[name="molho"]:checked')?.value || 'Caesar (iogurte e mostarda)'
+                };
+            }
+
+            function renderCart() {
+                if (cart.length === 0) {
+                    cartList.innerHTML = '<li style="text-align:center; padding:1.5rem; color:#5f8575;">Carrinho vazio. Monte sua saladinha :)</li>';
+                    cartTotalSpan.innerText = 'Total: R$ 0,00';
+                    checkoutBtn.disabled = true;
+                    return;
+                }
+                let html = '', total = 0;
+                cart.forEach((item, idx) => {
+                    const subtotal = item.quantity * 25.90;
+                    total += subtotal;
+                    html += `<li class="cart-item" data-index="${idx}">
+                        <div class="item-desc">
+                            <span>${item.choices.protein}</span>
+                            <span>${item.choices.carb}</span>
+                            <span>${item.choices.base}</span>
+                            <span>${item.choices.molho}</span>
+                        </div>
+                        <div class="item-actions">
+                            <div class="qty-control">
+                                <button class="qty-minus" data-index="${idx}">−</button>
+                                <span>${item.quantity}</span>
+                                <button class="qty-plus" data-index="${idx}">+</button>
+                            </div>
+                            <span class="item-price">R$ ${subtotal.toFixed(2)}</span>
+                            <button class="btn-remove" data-index="${idx}"><i class="fas fa-trash-alt"></i> remover</button>
+                        </div>
+                    </li>`;
+                });
+                cartList.innerHTML = html;
+                cartTotalSpan.innerText = `Total: R$ ${total.toFixed(2)}`;
+                checkoutBtn.disabled = false;
+                attachCartEvents();
+            }
+
+            function attachCartEvents() {
+                document.querySelectorAll('.qty-minus').forEach(btn => {
+                    btn.addEventListener('click', e => {
+                        let idx = e.target.dataset.index;
+                        if (cart[idx].quantity > 1) cart[idx].quantity--;
+                        else cart.splice(idx, 1);
+                        renderCart();
+                    });
+                });
+                document.querySelectorAll('.qty-plus').forEach(btn => {
+                    btn.addEventListener('click', e => {
+                        let idx = e.target.dataset.index;
+                        cart[idx].quantity++;
+                        renderCart();
+                    });
+                });
+                document.querySelectorAll('.btn-remove').forEach(btn => {
+                    btn.addEventListener('click', e => {
+                        let idx = e.target.dataset.index;
+                        cart.splice(idx, 1);
+                        renderCart();
+                    });
+                });
+            }
+
+            addBtn.addEventListener('click', () => {
+                let choices = getCurrentChoices();
+                let exists = cart.findIndex(item => 
+                    item.choices.protein === choices.protein &&
+                    item.choices.carb === choices.carb &&
+                    item.choices.base === choices.base &&
+                    item.choices.molho === choices.molho
+                );
+                if (exists >= 0) cart[exists].quantity++;
+                else cart.push({ choices, quantity: 1 });
+                renderCart();
+            });
+
+            checkoutBtn.addEventListener('click', () => { if (cart.length) modal.style.display = 'flex'; });
+            cancelModal.addEventListener('click', () => modal.style.display = 'none');
+
+            confirmPedido.addEventListener('click', () => {
+                let nome = document.getElementById('nomeCliente').value.trim();
+                let email = document.getElementById('emailCliente').value.trim();
+                let whats = document.getElementById('whatsappCliente').value.trim();
+                let observar = document.getElementById('observar').value.trim();
+                if (!nome || !email || !whats || !observar) return alert('Preencha todos os campos!');
+
+                // Construir mensagem do pedido - cada item em linhas separadas com negrito
+                let itensPedido = '';
+                let total = 0;
+                cart.forEach(item => {
+                    const subtotal = item.quantity * 25.90;
+                    total += subtotal;
+                    itensPedido += `*${item.choices.protein}*\n*${item.choices.carb}*\n*${item.choices.base}*\n*${item.choices.molho}*\nQuantidade: ${item.quantity} - R$ ${subtotal.toFixed(2)}\n\n`;
+                });
+
+                const mensagem = `PEDIDO DO CLIENTE NO SITE:\n\n${itensPedido}*Total: R$ ${total.toFixed(2)}*\n\nDADOS DO CLIENTE:\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${whats} \nOBSERVAR: ${observar}`;
+
+                // Codificar para URL
+                const textoCodificado = encodeURIComponent(mensagem);
+                const url = `https://wa.me/${whatsappNumber}?text=${textoCodificado}`;
+
+                // Abrir WhatsApp
+                window.open(url, '_blank');
+
+                // Limpar carrinho e fechar modal
+                cart = [];
+                renderCart();
+                modal.style.display = 'none';
+                document.getElementById('nomeCliente').value = '';
+                document.getElementById('emailCliente').value = '';
+                document.getElementById('whatsappCliente').value = '';
+            });
+
+            modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+
+            document.getElementById('menuToggle').addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.toggle('show');
+            });
+
+            renderCart();
+        })();
+    </script>
+</body>
+</html>
