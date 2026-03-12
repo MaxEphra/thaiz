@@ -672,7 +672,7 @@
             </div>
         
             <div class="preco-destaque">R$ 25,90</div>
-            <button class="btn-add" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Adicionar ao carrinho</button>
+            <button class="btn-add" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Adicionar</button>
         </section>
 
         <!-- Carrinho -->
@@ -782,7 +782,7 @@
             const confirmPedido = document.getElementById('confirmarPedido');
 
             // Número de WhatsApp para envio (formato internacional)
-            const whatsappNumber = '5511989321709';
+            const whatsappNumber = '5511965899979';
 
             // BASE fixa
             const BASE_FIXA = 'Mix de folhas e Legumes frescos';
@@ -876,7 +876,8 @@
                 let nome = document.getElementById('nomeCliente').value.trim();
                 let email = document.getElementById('emailCliente').value.trim();
                 let whats = document.getElementById('whatsappCliente').value.trim();
-                if (!nome || !email || !whats) return alert('Preencha todos os campos!');
+                let observar = document.getElementById('observar').value.trim();
+                if (!nome || !email || !whats || !observar) return alert('Preencha todos os campos!');
 
                 // Construir mensagem do pedido - cada item em linhas separadas com negrito
                 let itensPedido = '';
@@ -887,7 +888,7 @@
                     itensPedido += `*${item.choices.protein}*\n*${item.choices.carb}*\n*${item.choices.base}*\n*${item.choices.molho}*\nQuantidade: ${item.quantity} - R$ ${subtotal.toFixed(2)}\n\n`;
                 });
 
-                const mensagem = `Olá! Meu pedido:\n\n${itensPedido}*Total: R$ ${total.toFixed(2)}*\n\nDados:\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${whats}`;
+                const mensagem = `PEDIDO NO SITE GREEN VITTA:\n\n${itensPedido}*Total: R$ ${total.toFixed(2)}*\n\nDados:\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${whats} \nObservação: ${observar}`;
 
                 // Codificar para URL
                 const textoCodificado = encodeURIComponent(mensagem);
@@ -916,6 +917,7 @@
     </script>
 </body>
 </html>
+
 
 
 
