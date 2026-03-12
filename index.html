@@ -888,7 +888,7 @@
                     itensPedido += `*${item.choices.protein}*\n*${item.choices.carb}*\n*${item.choices.base}*\n*${item.choices.molho}*\nQuantidade: ${item.quantity} - R$ ${subtotal.toFixed(2)}\n\n`;
                 });
 
-                const mensagem = `PEDIDO NO SITE GREEN VITTA:\n\n${itensPedido}*Total: R$ ${total.toFixed(2)}*\n\nDados:\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${whats} \nObservação: ${observar}`;
+                const mensagem = `PEDIDO NO SITE GREEN VITTA:\n\n${itensPedido}*Total: R$ ${total.toFixed(2)}*\n\nDados do Cliente:\nNome: ${nome}\nE-mail: ${email}\nWhatsApp: ${whats} \nObservação: ${observar}`;
 
                 // Codificar para URL
                 const textoCodificado = encodeURIComponent(mensagem);
@@ -917,6 +917,7 @@
     </script>
 </body>
 </html>
+
 
 
 
